@@ -16,9 +16,9 @@ test('variance', function(t){
   var ptFC = featurecollection([pt1, pt2, pt3, pt4, pt5])
 
   var varianced = variance(polyFC, ptFC, 'population', 'pop_var')
-  console.log('????',varianced.features[0].properties.pop_var)
+
   t.equal(varianced.features[0].geometry.type, 'Polygon')
-  t.equal(varianced.features[0].properties.pop_var, 50)
+  t.equal(varianced.features[0].properties.pop_var, 2500)
 
   t.end()
 })
