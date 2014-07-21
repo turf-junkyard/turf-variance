@@ -4,6 +4,29 @@ turf-variance
 
 Calculates the standard deviation value of a field for points within a set of polygons.
 
+###Install
+
+```sh
+npm install turf-variance
+```
+
+###Parameters
+
+|name|description|
+|---|---|
+|polys|featurecollection of polygons|
+|points|featurecollection of points|
+|inField|field to map|
+|outField|new field|
+
+###Usage
+
+```js
+variance(polyFC, ptFC, inField, outField)
+```
+
+###Example
+
 ```javascript
 var variance = require('turf-variance')
 var point = require('turf-point')
