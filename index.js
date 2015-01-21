@@ -29,11 +29,11 @@ var inside = require('turf-inside');
 *   ]])
 * ]);
 * var points = turf.featurecollection([
-*   turf.point(-97.401351, 37.719676, {population: 200}),
-*   turf.point(-97.355346, 37.706639, {population: 600}),
-*   turf.point(-97.387962, 37.70012, {population: 100}),
-*   turf.point(-97.301788, 37.66507, {population: 200}),
-*   turf.point(-97.265052, 37.643325, {population: 300})]);
+*   turf.point([-97.401351, 37.719676], {population: 200}),
+*   turf.point([-97.355346, 37.706639], {population: 600}),
+*   turf.point([-97.387962, 37.70012], {population: 100}),
+*   turf.point([-97.301788, 37.66507], {population: 200}),
+*   turf.point([-97.265052, 37.643325], {population: 300})]);
 *
 * var aggregated = turf.variance(
 *   polygons, points, 'population', 'variance');
