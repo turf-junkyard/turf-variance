@@ -1,50 +1,71 @@
-turf-variance
-=============
+# turf-variance
+
 [![build status](https://secure.travis-ci.org/Turfjs/turf-variance.png)](http://travis-ci.org/Turfjs/turf-variance)
 
-Calculates the standard deviation value of a field for points within a set of polygons.
+turf variance module
 
-###Install
 
-```sh
-npm install turf-variance
-```
+### `turf.variance(polygons, points, inField, outField)`
 
-###Parameters
+Calculates the variance value of a field for Point features within a set of Polygon features.
 
-|name|description|
-|---|---|
-|polys|featurecollection of polygons|
-|points|featurecollection of points|
-|inField|field to map|
-|outField|new field|
 
-###Usage
+### Parameters
+
+| parameter  | type              | description                             |
+| ---------- | ----------------- | --------------------------------------- |
+| `polygons` | FeatureCollection | a FeatureCollection of Polygon features |
+| `points`   | FeatureCollection | a FeatureCollection of Point features   |
+| `inField`  | string            | the field in input data to analyze      |
+| `outField` | string            | the field in which to store results     |
+
+
+### Example
 
 ```js
-variance(polyFC, ptFC, inField, outField)
+var polygons = turf.featurecollection([
+  turf.polygon([[
+    [-97.414398, 37.684092],
+    [-97.414398, 37.731353],
+    [-97.332344, 37.731353],
+    [-97.332344, 37.684092],
+    [-97.414398, 37.684092]
+  ]]),
+  turf.polygon([[
+    [-97.333717, 37.606072],
+    [-97.333717, 37.675397],
+    [-97.237586, 37.675397],
+    [-97.237586, 37.606072],
+    [-97.333717, 37.606072]
+  ]])
+]);
+var points = turf.featurecollection([
+  turf.point([-97.401351, 37.719676], {population: 200}),
+  turf.point([-97.355346, 37.706639], {population: 600}),
+  turf.point([-97.387962, 37.70012], {population: 100}),
+  turf.point([-97.301788, 37.66507], {population: 200}),
+  turf.point([-97.265052, 37.643325], {population: 300})]);
+
+var aggregated = turf.variance(
+  polygons, points, 'population', 'variance');
+
+var result = turf.featurecollection(
+  points.features.concat(aggregated.features));
+
+//=result
 ```
 
-###Example
+## Installation
 
-```javascript
-var variance = require('turf-variance')
-var point = require('turf-point')
-var polygon = require('turf-polygon')
-var featurecollection = require('turf-featurecollection')
+Requires [nodejs](http://nodejs.org/).
 
-var poly1 = polygon([[[0,0],[10,0],[10,10], [0,10]]])
-var poly2 = polygon([[[10,0],[20,10],[20,20], [20,0]]])
-var polyFC = featurecollection([poly1, poly2])
-var pt1 = point(1,1, {population: 500})
-var pt2 = point(1,3, {population: 400})
-var pt3 = point(14,2, {population: 600})
-var pt4 = point(13,1, {population: 500})
-var pt5 = point(19,7, {population: 200})
-var ptFC = featurecollection([pt1, pt2, pt3, pt4, pt5])
-
-var varianced = variance(polyFC, ptFC, 'population', 'pop_variance')
-
-console.log(varianced.features[0].properties.pop_variance)
-console.log(varianced.features[1].properties.pop_variance)
+```sh
+$ npm install turf-variance
 ```
+
+## Tests
+
+```sh
+$ npm test
+```
+

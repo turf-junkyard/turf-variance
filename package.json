@@ -4,11 +4,12 @@
   "description": "turf variance module",
   "main": "index.js",
   "scripts": {
-    "test": "tape test.js"
+    "test": "tape test.js",
+    "doc": "dox -r < index.js | doxme --readme > README.md"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/morganherlocker/turf-variance.git"
+    "url": "https://github.com/Turfjs/turf-variance.git"
   },
   "keywords": [
     "turf",
@@ -20,18 +21,20 @@
   "author": "morganherlocker",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/morganherlocker/turf-variance/issues"
+    "url": "https://github.com/Turfjs/turf-variance/issues"
   },
-  "homepage": "https://github.com/morganherlocker/turf-variance",
+  "homepage": "https://github.com/Turfjs/turf-variance",
   "devDependencies": {
     "benchmark": "^1.0.0",
     "tape": "^3.0.3",
     "turf-featurecollection": "^1.0.0",
-    "turf-point": "^1.2.0",
-    "turf-polygon": "^1.0.0"
+    "turf-point": "^2.0.0",
+    "turf-polygon": "^1.0.1",
+    "dox": "^0.6.1",
+    "doxme": "^1.4.2"
   },
   "dependencies": {
     "simple-statistics": "^0.9.0",
-    "turf-inside": "^1.1.2"
+    "turf-inside": "^1.1.3"
   }
 }
