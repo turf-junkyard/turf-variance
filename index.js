@@ -5,6 +5,7 @@ var inside = require('turf-inside');
 * Calculates the variance value of a field for {@link Point} features within a set of {@link Polygon} features.
 *
 * @module turf/variance
+* @category aggregation
 * @param {FeatureCollection} polygons a FeatureCollection of {@link Polygon} features
 * @param {FeatureCollection} points a FeatureCollection of {@link Point} features
 * @param {string} inField the field in input data to analyze
