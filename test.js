@@ -5,8 +5,8 @@ var point = require('turf-point');
 var featurecollection =  require('turf-featurecollection');
 
 test('variance', function(t){
-  var poly1 = polygon([[[0,0],[10,0],[10,10], [0,10]]]);
-  var poly2 = polygon([[[10,0],[20,10],[20,20], [20,0]]]);
+  var poly1 = polygon([[[0,0],[10,0],[10,10], [0,10],[0,0]]]);
+  var poly2 = polygon([[[10,0],[20,10],[20,20], [20,0],[10,0]]]);
   var polyFC = featurecollection([poly1, poly2]);
   var pt1 = point([1,1], {population: 500});
   var pt2 = point([1,3], {population: 400});
