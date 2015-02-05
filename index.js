@@ -2,48 +2,113 @@ var ss = require('simple-statistics');
 var inside = require('turf-inside');
 
 /**
-* Calculates the variance value of a field for {@link Point} features within a set of {@link Polygon} features.
-*
-* @module turf/variance
-* @category aggregation
-* @param {FeatureCollection} polygons a FeatureCollection of {@link Polygon} features
-* @param {FeatureCollection} points a FeatureCollection of {@link Point} features
-* @param {string} inField the field in input data to analyze
-* @param {string} outField the field in which to store results
-* @return {FeatureCollection} a FeatureCollection of {@link Polygon} features
-* with properties listed as `outField`
-* @example
-* var polygons = turf.featurecollection([
-*   turf.polygon([[
-*     [-97.414398, 37.684092],
-*     [-97.414398, 37.731353],
-*     [-97.332344, 37.731353],
-*     [-97.332344, 37.684092],
-*     [-97.414398, 37.684092]
-*   ]]),
-*   turf.polygon([[
-*     [-97.333717, 37.606072],
-*     [-97.333717, 37.675397],
-*     [-97.237586, 37.675397],
-*     [-97.237586, 37.606072],
-*     [-97.333717, 37.606072]
-*   ]])
-* ]);
-* var points = turf.featurecollection([
-*   turf.point([-97.401351, 37.719676], {population: 200}),
-*   turf.point([-97.355346, 37.706639], {population: 600}),
-*   turf.point([-97.387962, 37.70012], {population: 100}),
-*   turf.point([-97.301788, 37.66507], {population: 200}),
-*   turf.point([-97.265052, 37.643325], {population: 300})]);
-*
-* var aggregated = turf.variance(
-*   polygons, points, 'population', 'variance');
-*
-* var result = turf.featurecollection(
-*   points.features.concat(aggregated.features));
-*
-* //=result
-*/
+ * Calculates the variance value of a field for {@link Point} features within a set of {@link Polygon} features.
+ *
+ * @module turf/variance
+ * @category aggregation
+ * @param {FeatureCollection} polygons a FeatureCollection of {@link Polygon} features
+ * @param {FeatureCollection} points a FeatureCollection of {@link Point} features
+ * @param {string} inField the field in input data to analyze
+ * @param {string} outField the field in which to store results
+ * @return {FeatureCollection} a FeatureCollection of {@link Polygon} features
+ * with properties listed as `outField`
+ * @example
+ * var polygons = {
+ *   "type": "FeatureCollection",
+ *   "features": [
+ *     {
+ *       "type": "Feature",
+ *       "properties": {},
+ *       "geometry": {
+ *         "type": "Polygon",
+ *         "coordinates": [[
+ *           [-97.414398, 37.684092],
+ *           [-97.414398, 37.731353],
+ *           [-97.332344, 37.731353],
+ *           [-97.332344, 37.684092],
+ *           [-97.414398, 37.684092]
+ *         ]]
+ *       }
+ *     }, {
+ *       "type": "Feature",
+ *       "properties": {},
+ *       "geometry": {
+ *         "type": "Polygon",
+ *         "coordinates": [[
+ *           [-97.333717, 37.606072],
+ *           [-97.333717, 37.675397],
+ *           [-97.237586, 37.675397],
+ *           [-97.237586, 37.606072],
+ *           [-97.333717, 37.606072]
+ *         ]]
+ *       }
+ *     }
+ *   ]
+ * };
+ * var points = {
+ *   "type": "FeatureCollection",
+ *   "features": [
+ *     {
+ *       "type": "Feature",
+ *       "properties": {
+ *         "population": 200
+ *       },
+ *       "geometry": {
+ *         "type": "Point",
+ *         "coordinates": [-97.401351, 37.719676]
+ *       }
+ *     }, {
+ *       "type": "Feature",
+ *       "properties": {
+ *         "population": 600
+ *       },
+ *       "geometry": {
+ *         "type": "Point",
+ *         "coordinates": [-97.355346, 37.706639]
+ *       }
+ *     }, {
+ *       "type": "Feature",
+ *       "properties": {
+ *         "population": 100
+ *       },
+ *       "geometry": {
+ *         "type": "Point",
+ *         "coordinates": [-97.387962, 37.70012]
+ *       }
+ *     }, {
+ *       "type": "Feature",
+ *       "properties": {
+ *         "population": 200
+ *       },
+ *       "geometry": {
+ *         "type": "Point",
+ *         "coordinates": [-97.301788, 37.66507]
+ *       }
+ *     }, {
+ *       "type": "Feature",
+ *       "properties": {
+ *         "population": 300
+ *       },
+ *       "geometry": {
+ *         "type": "Point",
+ *         "coordinates": [-97.265052, 37.643325]
+ *       }
+ *     }
+ *   ]
+ * };
+ *
+ * var aggregated = turf.variance(
+ *   polygons, points, 'population', 'variance');
+ *
+ * var resultFeatures = points.features.concat(
+ *   aggregated.features);
+ * var result = {
+ *   "type": "FeatureCollection",
+ *   "features": resultFeatures
+ * };
+ *
+ * //=result
+ */
 module.exports = function (polyFC, ptFC, inField, outField) {
   polyFC.features.forEach(function(poly){
     if(!poly.properties){
